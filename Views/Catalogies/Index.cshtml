@@ -1,0 +1,46 @@
+﻿@model IEnumerable<GFL_TZ.Models.Catalogy>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+<table class="table">
+        <span style="font-size: 20px; margin-bottom: 20px;">
+            <b> "Folder" - @ViewBag.Folder </b>
+        </span>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a href="@Url.Action("Index", "Catalogies", new { index = item.Id })">
+                @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+ <div style="padding-bottom: 20px">
+            <p style="font-size:15px">Завантаження інформації в файл</p>
+        <a href='@Url.Action("Export")'><input type="button" value="Завантажити" class="btn btn-primary mb-3" /></a>
+    </div>
+
+    <form action="@Url.Action("Import", "Catalogies")" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="fileInput">Виберіть Excel-файл для імпорту:</label>
+        <input type="file" name="file" id="fileInput" accept=".xlsx">
+    </div>
+    <button type="submit" class="btn btn-primary">Імпортувати</button>
+</form>
+
+</body>
+</html>
